@@ -16,7 +16,7 @@ class EpisodesTableSeeder extends Seeder
         DB::table('episodes')->insert([
             [
                 'name' => 'Episodio de prueba',
-                'patient_id' => 1,
+                'pacient_id' => 1,
                 'nurse_id' => 2,
             ]
         ]);

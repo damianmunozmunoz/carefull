@@ -19,31 +19,31 @@ class EpisodeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('episodes.form');
+        $pacient_id = $request->query('pacient_id');
+        $appointment_id = $request->query('appointment_id');
+        return view('nurse.episodes.form', ['pacient_id' => $pacient_id, 'appointment_id' => $appointment_id]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $e = new Episode();
-        $e->name = $request->name;
-        $e->patient_id = $request->patient_id;
-        $e->nurse_id = $request->nurse_id;
-        $e->save();
+        $episode = Episode::create([
+            'name' => $request->input('name'),
+            'nurse_id' => auth()->id(),
+            'pacient_id' => $request->query('pacient_id'), // Usamos query string
+        ]);
 
-        return redirect()->route('episodes.index');
+        return redirect()->route('nurse.appointments.edit', $request->appointment_id);
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        $episode = Episode::findOrFail($id);
+        $episode = Episode::with(['appointments.allergies', 'appointments.medicines', 'appointments.vaccines', 'appointments.diseases'])->findOrFail($id);
         return view('appointments.index', $episode);
     }
     /**

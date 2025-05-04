@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -46,11 +47,21 @@ class User extends Authenticatable
         ];
     }
 
-    public function additionalUserInfos(){
+    public function additionalUserInfo()
+    {
         return $this->hasOne(AdditionalUserInfo::class);
     }
 
-    public function episodes(){
-        return $this->hasMany(Episode::class);
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            $user->additionalUserInfo()->create(); // Crea la info con las filas vacías
+        });
+    }
+
+
+    public function episodes()
+    {
+        return $this->hasMany(Episode::class, 'pacient_id');
     }
 }

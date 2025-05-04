@@ -24,7 +24,7 @@ class Appointment extends Model
         return $this->belongsToMany(Disease::class, 'appointments_diseases', 'appointment_id', 'disease_id');
     }
 
-    public function episodes(){
+    public function episode(){
         return $this->belongsTo(Episode::class, 'episode_id');
     }
 

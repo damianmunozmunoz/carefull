@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
 
-            $table->unsignedBigInteger('patient_id');
+            $table->unsignedBigInteger('pacient_id');
             $table->unsignedBigInteger('nurse_id');
             
-            $table->foreign('patient_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('pacient_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('nurse_id')->references('id')->on('users')->onDelete('cascade');
             
             $table->timestamps();
