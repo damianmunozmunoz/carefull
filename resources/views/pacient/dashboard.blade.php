@@ -5,6 +5,9 @@
 
     <p class="mb-4 text-gray-700">Nurse asignado: <strong>{{ $nurse->name }}</strong></p>
 
+    <a href="{{ route('pacient.medical_record') }}">Consulta tu ficha médica</a>
+    <a href="{{ route('pacient.medical_history') }}">Ver historial médico</a>
+
     <form method="GET" action="{{ route('pacient.dashboard') }}" class="mb-6">
         <label for="date" class="font-semibold mr-2">Selecciona una fecha:</label>
         <input type="date" name="date" value="{{ $date }}" onchange="this.form.submit()" class="border px-2 py-1">

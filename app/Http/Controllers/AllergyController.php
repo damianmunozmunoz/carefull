@@ -4,24 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Allergy;
+use App\Models\User;
 
 class AllergyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $allergies = Allergy::with(['appointments', 'medicines'])->get();
-        return view('allergies.index', $allergies);
+        return view('nurse.allergies.all', ['allergies' => $allergies]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        $allergy = Allergy::with(['appointments', 'medicines'])->findOrFail($id);
-        return view('allergies.show', $allergy);
+        $nurse = auth()->user();
+
+        $allergy = Allergy::with('medicines')->findOrFail($id);
+
+        $pacients = User::where('role', '=', 'pacient')
+            ->whereHas('episodes', function ($q) use ($nurse, $allergy) {
+                $q->where('nurse_id', '=', $nurse->id)
+                    ->whereHas('appointments', function ($appointmentq) use ($allergy) {
+                        $appointmentq->whereHas('allergies', function ($allergyq) use ($allergy) {
+                            $allergyq->where('allergies.id', '=', $allergy->id);
+                        });
+                    });
+            })->get();
+
+        return view('nurse.allergies.show', ['allergy' => $allergy, 'pacients' => $pacients]);
     }
+
 }

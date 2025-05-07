@@ -3,6 +3,37 @@
 @section('content')
     <h1 class="text-2xl font-bold mb-6">Panel de Enfermería</h1>
 
+    <a href="{{ route('nurse.diseases.index') }}" class="text-blue-600 underline">Enfermedades</a>
+    <a href="{{ route('nurse.allergies.index') }}" class="text-blue-600 underline">Alergias</a>
+    <a href="{{ route('nurse.medicines.index') }}" class="text-blue-600 underline">Medicamentos</a>
+    <a href="{{ route('nurse.vaccines.index') }}" class="text-blue-600 underline">Vacunas</a>
+
+    <h2 class="text-xl font-bold mt-8 mb-2">Pacientes asignados</h2>
+    <table class="w-full border border-collapse mb-6">
+        <thead class="bg-gray-100">
+            <tr>
+                <th class="border px-4 py-2">Nombre</th>
+                <th class="border px-4 py-2">Email</th>
+                <th class="border px-4 py-2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($pacients as $pacient)
+                <tr>
+                    <td class="border px-4 py-2">{{ $pacient->name }}</td>
+                    <td class="border px-4 py-2">{{ $pacient->email }}</td>
+                    <td class="border px-4 py-2 space-x-2">
+                        <a href="{{ route('nurse.pacients.medical_record', $pacient->id) }}"
+                            class="text-blue-600 hover:underline">Ficha médica</a>
+                        <a href="{{ route('nurse.pacients.medical_history', $pacient->id) }}"
+                            class="text-blue-600 hover:underline">Historial médico</a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+
     <form method="GET" action="{{ route('nurse.dashboard') }}" class="mb-4">
         <label for="date">Fecha:</label>
         <input type="date" name="date" value="{{ $date }}" onchange="this.form.submit()" class="border px-2 py-1">
