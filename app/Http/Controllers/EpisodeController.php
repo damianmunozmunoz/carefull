@@ -7,18 +7,12 @@ use App\Models\Episode;
 
 class EpisodeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $episodes = Episode::all();
         return view('episodes.index', $episodes);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(Request $request)
     {
         $pacient_id = $request->query('pacient_id');
@@ -37,27 +31,18 @@ class EpisodeController extends Controller
         return redirect()->route('nurse.appointments.edit', $request->appointment_id);
     }
 
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $episode = Episode::with(['appointments.allergies', 'appointments.medicines', 'appointments.vaccines', 'appointments.diseases'])->findOrFail($id);
         return view('appointments.index', $episode);
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
         $episode = Episode::findOrFail($id);
         return view('episodes.form');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $e = Episode::findOrFail($id);
@@ -69,9 +54,6 @@ class EpisodeController extends Controller
         return redirect()->route('episodes.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $e = Episode::findOrFail($id);

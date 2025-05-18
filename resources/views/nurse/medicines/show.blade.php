@@ -16,6 +16,19 @@
         @endforelse
     </ul>
 
+    <h2 class="text-xl font-semibold mb-2">Alergias tratadas</h2>
+    <ul class="list-disc list-inside mb-6">
+        @forelse ($medicine->allergies as $allergy)
+            <li>
+                <a href="{{ route('nurse.allergies.show', $allergy->id) }}" class="text-blue-600 underline">
+                    {{ $allergy->name }}
+                </a>
+            </li>
+        @empty
+            <li>No hay alergias asociadas.</li>
+        @endforelse
+    </ul>
+
     <h2 class="text-xl font-semibold mb-2">Tus pacientes que han recibido este medicamento</h2>
     <ul class="list-disc list-inside">
         @forelse ($pacients as $pacient)

@@ -21,9 +21,13 @@ Route::middleware(['auth', 'role:nurse'])->name('nurse.')->prefix('nurse')->grou
     Route::resource('appointments', AppointmentController::class)->except(['index', 'show']);
     Route::resource('episodes', EpisodeController::class)->only(['create', 'store']);
     Route::resource('diseases', DiseaseController::class)->only(['index', 'show']);
+    Route::get('search-disease', [DiseaseController::class, 'searchDisease'])->name('search-disease');
     Route::resource('medicines', MedicineController::class)->only(['index', 'show']);
+    Route::get('search-medicine', [MedicineController::class, 'searchMedicine'])->name('search-medicine');
     Route::resource('vaccines', VaccineController::class)->only(['index', 'show']);
+    Route::get('search-vaccine', [VaccineController::class, 'searchVaccine'])->name('search-vaccine');
     Route::resource('allergies', AllergyController::class)->only(['index', 'show']);
+    Route::get('search-allergy', [AllergyController::class, 'searchAllergy'])->name('search-allergy');
     Route::get('/pacients/{id}/medical-record', [NurseController::class, 'showMedicalRecord'])->name('pacients.medical_record');
     Route::get('/pacients/{id}/medical-history', [NurseController::class, 'showMedicalHistory'])->name('pacients.medical_history');
     Route::get('/episode/{episode_id}/appointments', [NurseController::class, 'showEpisodeAppointments'])->name('episode.appointments');

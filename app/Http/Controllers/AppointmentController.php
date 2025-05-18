@@ -14,9 +14,6 @@ use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(Request $request)
     {
         $user = auth()->user();
@@ -34,9 +31,6 @@ class AppointmentController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $user = auth()->user();
@@ -93,18 +87,12 @@ class AppointmentController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $appointment = Appointment::with(['allergies', 'vaccines', 'diseases', 'medicines', 'episode.pacient', 'episode.nurse'])->findOrFail($id);
         return view('pacient.appointments.show', ['appointment' => $appointment]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $user = auth()->user();
@@ -122,9 +110,6 @@ class AppointmentController extends Controller
         return view('nurse.appointments.updateform', ['appointment' => $appointment, 'episodes' => $episodes, 'allergies' => $allergies, 'diseases' => $diseases, 'medicines' => $medicines, 'vaccines' => $vaccines]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $appointment = Appointment::findOrFail($id);
@@ -151,9 +136,6 @@ class AppointmentController extends Controller
         return redirect()->route('nurse.dashboard');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $user = auth()->user();

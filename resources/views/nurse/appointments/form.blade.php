@@ -1,28 +1,30 @@
 @extends('layouts.master')
 
-<p>Crear cita para paciente</p>
+@section('title', 'Crea la cita para un paciente')
 
 @section('content')
-<h1 class="text-2xl font-bold mb-6">Nueva cita para un paciente</h1>
+    <div class="contenedor-formulario">
+        <form method="POST" action="{{ route('nurse.appointments.store', ['date' => $date, 'time' => $time]) }}"
+            class="cita-formulario">
+            @csrf
 
-<form method="POST" action="{{ route('nurse.appointments.store', ['date' => $date, 'time' => $time]) }}" class="max-w-lg space-y-4">
-    @csrf
+            <h5 class="titulo-formulario"><b>Rellena los datos de la cita para el día <br> {{ $date }} a las {{ $time }}</b></h5>
+            <div class="formulario">
+                <label for="pacient_id"><b>Selecciona un paciente:</b></label>
+                <select name="pacient_id" required>
+                    <option value="">Elige uno de tus pacientes</option>
+                    @foreach ($pacients as $pacient)
+                        <option value="{{ $pacient->id }}">{{ $pacient->name }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-    <div>
-        <label for="pacient_id" class="block font-semibold mb-1">Selecciona paciente:</label>
-        <select name="pacient_id" required class="w-full border p-2 rounded">
-            <option value="">-- Elige un paciente --</option>
-            @foreach ($pacients as $pacient)
-                <option value="{{ $pacient->id }}">{{ $pacient->name }}</option>
-            @endforeach
-        </select>
+            <div class="formulario">
+                <label for="reason"><b>Introduce un motivo:</b></label>
+                <textarea name="reason" rows="4" required></textarea>
+            </div>
+
+            <button type="submit" class="boton-formulario"><b>Crear cita</b></button>
+        </form>
     </div>
-
-    <div>
-        <label for="reason" class="block font-semibold mb-1">Motivo:</label>
-        <textarea name="reason" required class="w-full border p-2 rounded"></textarea>
-    </div>
-
-    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Crear cita</button>
-</form>
 @endsection

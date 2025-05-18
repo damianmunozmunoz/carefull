@@ -1,58 +1,52 @@
 @extends('layouts.master')
 
+@section('title', 'Panel del paciente')
+
 @section('content')
-    <h1 class="text-2xl font-bold mb-4">Panel del Paciente</h1>
+    <nav id="nav-pacient">
+        <a href="{{ route('pacient.medical_history') }}" class="nav-pacient">
+            <div class="azul-claro">Tu historial médico</div>
+        </a>
+        <a href="{{ route('pacient.medical_record') }}" class="nav-pacient">
+            <div class="naranja">Tu ficha médica</div>
+        </a>
+    </nav>
 
-    <p class="mb-4 text-gray-700">Nurse asignado: <strong>{{ $nurse->name }}</strong></p>
-
-    <a href="{{ route('pacient.medical_record') }}">Consulta tu ficha médica</a>
-    <a href="{{ route('pacient.medical_history') }}">Ver historial médico</a>
-
-    <form method="GET" action="{{ route('pacient.dashboard') }}" class="mb-6">
-        <label for="date" class="font-semibold mr-2">Selecciona una fecha:</label>
-        <input type="date" name="date" value="{{ $date }}" onchange="this.form.submit()" class="border px-2 py-1">
+    <br>
+    <h4 class="text-center">Registra tu próxima cita</h4>
+    <form method="GET" action="{{ route('pacient.dashboard') }}" class="text-center">
+        @csrf
+        <label for="date">Selecciona un día y una hora para agendar tu cita</label><br>
+        <input type="date" name="date" value="{{ $date }}" onchange="this.form.submit()" class="fecha">
     </form>
 
-    <table class="w-full border border-collapse">
-        <thead class="bg-gray-100">
-            <tr>
-                <th class="border px-4 py-2">Hora</th>
-                <th class="border px-4 py-2">Estado</th>
-                <th class="border px-4 py-2">Detalle</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($dailyAppointments as $time)
-                @php
-                    $myAppointment = $myAppointments->get($time);
-                    $appointment = $allAppointments->get($time);
-                @endphp
-                <tr class="{{ $myAppointment ? 'bg-green-100' : ($appointment ? 'bg-red-100' : 'bg-white') }}">
-                    <td class="border px-4 py-2 font-mono">{{ $time }}</td>
-                    <td class="border px-4 py-2">
-                        @if ($myAppointment)
-                            <a href="{{ route('pacient.appointments.show', $myAppointment->id) }}" class="text-blue-600 underline">
-                                Tu cita
-                            </a>
-                        @elseif ($appointment)
-                            No disponible
-                        @else
-                            Libre
-                        @endif
-                    </td>
-                    <td class="border px-4 py-2">
-                        @if ($myAppointment)
-                            Médico: {{ $myAppointment->episode->nurse->name ?? 'N/D' }}<br>
-                            Motivo: {{ $myAppointment->reason }}
-                        @elseif (!$appointment)
-                            <a href="{{ route('pacient.appointments.create', ['date' => $date, 'time' => $time]) }}"
-                                class="text-blue-600 underline">Reserva tu cita en esta hora</a>
-                        @else
-                            —
-                        @endif
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <div class="contenedor">
+        @foreach ($dailyAppointments as $time)
+            @php
+                $myAppointment = $myAppointments->get($time);
+                $appointment = $allAppointments->get($time);
+            @endphp
+            @if($myAppointment)
+                <a href="{{ route('pacient.appointments.show', $myAppointment->id) }}">
+                    <div class="caja-cita tuya">
+                        <div>{{ $time }}</div>
+                        <div><b>Médico: </b>{{ $myAppointment->episode->nurse->name }}</div>
+                        <div><b>Motivo: </b>{{ $myAppointment->reason }}</div>
+                    </div>
+                </a>
+            @elseif($appointment)
+                <div class="caja-cita ocupada">
+                    <div>{{ $time }}</div>
+                    <p class="caja-cita-texto">No disponible</p>
+                </div>
+            @else
+                <a href="{{ route('pacient.appointments.create', ['date' => $date, 'time' => $time]) }}">
+                    <div class="caja-cita editable">
+                        <div>{{ $time }}</div>
+                        <p class="caja-cita-texto">Reserva una cita</p>
+                    </div>
+                </a>
+            @endif
+        @endforeach
+    </div>
 @endsection
