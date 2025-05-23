@@ -22,7 +22,7 @@ class EpisodeController extends Controller
 
     public function store(Request $request)
     {
-        $episode = Episode::create([
+        Episode::create([
             'name' => $request->input('name'),
             'nurse_id' => auth()->id(),
             'pacient_id' => $request->query('pacient_id'), // Usamos query string

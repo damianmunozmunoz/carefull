@@ -101,10 +101,10 @@ class AppointmentController extends Controller
 
         if($user->role == 'nurse'){
             $episodes = Episode::where('nurse_id', '=', $user->id)->where('pacient_id', '=', $pacient_id)->get();
-            $allergies = Allergy::all();
-            $diseases = Disease::all();
-            $medicines = Medicine::all();
-            $vaccines = Vaccine::all();
+            $allergies = Allergy::all()->sortBy('name');
+            $diseases = Disease::all()->sortBy('name');
+            $medicines = Medicine::all()->sortBy('name');
+            $vaccines = Vaccine::all()->sortBy('name');
         }
 
         return view('nurse.appointments.updateform', ['appointment' => $appointment, 'episodes' => $episodes, 'allergies' => $allergies, 'diseases' => $diseases, 'medicines' => $medicines, 'vaccines' => $vaccines]);

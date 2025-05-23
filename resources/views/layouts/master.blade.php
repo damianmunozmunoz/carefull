@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('metatitle')</title>
+    <title>CareFull</title>
     <link rel="stylesheet" href="{{ asset('styles.css') }}">
+    <link rel="icon" href="{{ asset('logo.png') }}" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prosto+One&display=swap" rel="stylesheet">
@@ -51,10 +52,17 @@
     </header>
 
     <main>
-        <h2 id="titulo-pagina">@yield('title')</h2>
+        <h2 id="titulo-pagina" class="m3">@yield('title')</h2>
         @yield('content')
     </main>
 
 </body>
-
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cajitas = document.querySelectorAll('.contenedor > a');
+        cajitas.forEach((cajita, indice) => {
+            cajita.style.animationDelay = `${indice * 0.1}s`;
+        });
+    });
+</script>
 </html>

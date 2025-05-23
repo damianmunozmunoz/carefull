@@ -3,8 +3,24 @@
     font-family: "Prosto One", sans-serif;
 }
 
+body {
+    opacity: 0;
+    animation: aparecer 0.6s ease-in-out forwards;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 header {
     padding: 5vh;
+    min-width: 410px;
 }
 
 header>h1,
@@ -27,6 +43,16 @@ header>h6 {
     width: 30vw;
     display: flex;
     margin: auto;
+    animation: expandirbarra 0.6s ease-in-out forwards;
+}
+
+@keyframes expandirbarra{
+    from{
+        width: 0vw;
+    }
+    to{
+        width: 30vw;
+    }
 }
 
 .barra div {
@@ -41,7 +67,7 @@ header>h6 {
     display: flex;
     gap: 1vw;
     justify-content: center;
-    font-size: 0.8rem;
+    font-size: clamp(0.6rem, 0.9vw, 1.2rem);
 }
 
 @media(max-width: 1200px) {
@@ -70,9 +96,9 @@ header>h6 {
 
 /*navs*/
 nav {
-    height: 6vh;
+    height: 3vw;
     width: 50vw;
-    min-width: 600px;
+    min-width: 300px;
     display: flex;
     margin: auto;
 }
@@ -83,11 +109,11 @@ nav>a {
     text-decoration: none;
 }
 
-.nav-nurse{
+.nav-nurse {
     width: 25%;
 }
 
-.nav-pacient{
+.nav-pacient {
     width: 50%;
 }
 
@@ -98,7 +124,7 @@ nav>a>div {
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: 1.1rem;
+    font-size: clamp(0.5rem, 1.4vw, 2rem);
     transition: 0.1s linear;
 }
 
@@ -117,10 +143,23 @@ nav>a>div:hover {
 
 .contenedor>a {
     text-decoration: none;
+    opacity: 0;
+    animation: aparecerizdadcha 1s ease-in-out forwards;
+}
+
+@keyframes aparecerizdadcha{
+    from{
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .caja-paciente {
-    width: 31vw;
+    width: 44vw;
     min-width: 350px;
     display: flex;
     height: auto;
@@ -158,6 +197,14 @@ nav>a>div:hover {
     color: #3DA5D9;
 }
 
+@media(max-width: 1000px) {
+
+    .caja-paciente-nombre p,
+    .caja-paciente-email p {
+        font-size: 0.6rem;
+    }
+}
+
 .botones-paciente {
     display: flex;
     width: 100%;
@@ -166,28 +213,36 @@ nav>a>div:hover {
 }
 
 .botones-paciente button {
-    background-color: #2364AA;
-    color: white;
-    border: none;
+    border: 3px solid #2364AA;
     border-radius: 10px;
+    color: #2364AA;
     width: 12vw;
     min-width: 100px;
-    height: 7vh;
+    height: auto;
     transition: 0.1s linear;
 }
 
 .botones-paciente button:hover {
+    background-color: #2364AA;
+    color: white;
     transform: scale(1.05);
     filter: saturate(150%);
     border-radius: 15px;
 }
 
+@media(max-width: 1324px) {
+    .botones-paciente button {
+        font-size: 0.9rem;
+    }
+}
+
 .caja-cita {
     width: 90vw;
-    min-width: 600px;
+    min-width: 300px;
     height: auto;
     display: flex;
     justify-content: space-between;
+    gap: 2vw;
     position: relative;
     margin: 0.5vw;
     padding: 2vh 2vw;
@@ -234,7 +289,7 @@ nav>a>div:hover {
     background-size: 100% 100%;
 }
 
-.ocupada{
+.ocupada {
     border-left: 3px solid rgb(230, 43, 43);
     color: rgb(236, 19, 19);
     background-image: linear-gradient(#fee);
@@ -243,13 +298,13 @@ nav>a>div:hover {
     transition: 0.6s ease-out;
 }
 
-.ocupada:hover{
+.ocupada:hover {
     border-left: 5px solid rgb(230, 43, 43);
     transform: scale(1.05);
     background-size: 100% 100%;
 }
 
-.tuya{
+.tuya {
     border-left: 3px solid rgb(43, 235, 43);
     color: rgb(12, 223, 12);
     background-image: linear-gradient(#efe);
@@ -258,46 +313,114 @@ nav>a>div:hover {
     transition: 0.6s ease-out;
 }
 
-.tuya:hover{
+.tuya:hover {
     border-left: 5px solid rgb(43, 235, 43);
     transform: scale(1.05);
     background-size: 100% 100%;
 }
 
+.episodio,
+.vacuna {
+    border-left: 3px solid #EA7317;
+    color: #EA7317;
+    background-image: linear-gradient(#F7E6AB);
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    transition: 0.6s ease-out;
+}
+
+.episodio:hover,
+.vacuna:hover {
+    border-left: 5px solid #EA7317;
+    transform: scale(1.05);
+    background-size: 100% 100%;
+}
+
+.cita,
+.medicamento {
+    border-left: 3px solid #FEC601;
+    color: #FEC601;
+    background-image: linear-gradient(#ffefb5);
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    transition: 0.6s ease-out;
+}
+
+.cita:hover,
+.medicamento:hover {
+    border-left: 5px solid #FEC601;
+    transform: scale(1.05);
+    background-size: 100% 100%;
+}
+
+.enfermedad {
+    border-left: 3px solid #2364AA;
+    color: #2364AA;
+    background-image: linear-gradient(#a5cdf7);
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    transition: 0.6s ease-out;
+}
+
+.enfermedad:hover {
+    border-left: 5px solid #2364AA;
+    transform: scale(1.05);
+    background-size: 100% 100%;
+}
+
+.alergia {
+    border-left: 3px solid #3DA5D9;
+    color: #3DA5D9;
+    background-image: linear-gradient(#d3edfa);
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    transition: 0.6s ease-out;
+}
+
+.alergia:hover {
+    border-left: 5px solid #3DA5D9;
+    transform: scale(1.05);
+    background-size: 100% 100%;
+}
+
+.barra-busqueda {
+    margin: 2vh auto;
+    max-width: 600px;
+    padding: 0 2vw;
+    box-sizing: border-box;
+}
+
 /*formularios*/
-.contenedor-formulario{
+.contenedor-formulario {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 2vh 2vw;
 }
 
-.cita-formulario{
+.cita-formulario {
     width: 100%;
     max-width: 600px;
     background-color: #fefefe;
-    border: 2px solid #3DA5D9;
-    border-left: 5px solid #3DA5D9;
+    border: 1px solid #ccc;
     border-radius: 15px;
     padding: 2vh 2vw;
-    transition: 0.6s ease-out;
+    transition: 0.4s ease-out;
 }
 
-.cita-formulario:hover{
+.cita-formulario:hover {
     box-shadow: 0 4px 12px #0009;
 }
 
-.titulo-formulario{
-    text-align: center;
-    color: #2364AA;
-}
-
-.formulario label{
+.formulario label {
     display: block;
     color: #3DA5D9;
 }
 
-.formulario select, .formulario textarea{
+.formulario select,
+.formulario textarea,
+.contenedor-vdam textarea,
+.formulario-texto {
     width: 100%;
     padding: 2vh 2vw;
     border: 1px solid #CCC;
@@ -305,7 +428,7 @@ nav>a>div:hover {
     font-size: 1rem;
 }
 
-.boton-formulario{
+.boton-formulario {
     width: 100%;
     padding: 2vh 2vw;
     background-color: #2364AA;
@@ -323,9 +446,179 @@ nav>a>div:hover {
     border-radius: 15px;
 }
 
+.contenedor-vdam {
+    min-width: 400px;
+    height: auto;
+    margin: 3vh 3vw;
+    padding: 2vh 2vw;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    transition: 0.4s ease-out;
+}
+
+.contenedor-vdam:hover {
+    box-shadow: 0 4px 12px #0009;
+}
+
+.contenedor-show-cita {
+    min-width: 400px;
+    height: auto;
+    margin: 3vh 3vw;
+    padding: 2vh 2vw;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 7vw;
+    justify-content: space-around;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+
+.contenedor-show-cita p {
+    margin: 1vh 1vw;
+}
+
+.contenedor-show-cita-grid {
+    min-width: 400px;
+    height: auto;
+    margin: 3vh 3vw;
+    padding: 2vh 2vw;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0;
+}
+
+.botones-update-cita {
+    display: flex;
+    justify-content: space-around;
+}
+
+.boton-submit-vdam {
+    width: 40%;
+    margin: 1vh 1vw;
+    padding: 2vh 2vw;
+    background-color: #2364AA;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    min-width: 100px;
+    height: 7vh;
+    transition: 0.1s linear;
+}
+
+.boton-submit-vdam:hover {
+    transform: scale(1.05);
+    filter: saturate(150%);
+    border-radius: 15px;
+}
+
+.titulo-vdam {
+    font-size: 1.2rem;
+    margin: 1vh 1vw;
+}
+
+.grupo-vdam {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.vdam {
+    display: flex;
+    justify-content: center;
+    padding: 1vh 1vw;
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    user-select: none;
+    transition: 0.4s ease-out;
+}
+
+.vdam:hover {
+    border-radius: 10px;
+    background-size: 100% 100%;
+}
+
+.vdam-medicine {
+    border-left: 3px solid #3DA5D9;
+    background-image: linear-gradient(#9ed2ec);
+}
+
+.vdam-medicine:hover {
+    border-left: 5px solid #3DA5D9;
+}
+
+.vdam-disease {
+    border-left: 3px solid #73BFB8;
+    background-image: linear-gradient(#b4e7e2);
+}
+
+.vdam-disease:hover {
+    border-left: 5px solid #73BFB8;
+}
+
+.vdam-allergy {
+    border-left: 3px solid #FEC601;
+    background-image: linear-gradient(#ffefb5);
+}
+
+.vdam-allergy:hover {
+    border-left: 5px solid #FEC601;
+}
+
+.vdam-vaccine {
+    border-left: 3px solid #EA7317;
+    background-image: linear-gradient(#F7E6AB);
+}
+
+.vdam-vaccine:hover {
+    border-left: 5px solid #EA7317;
+}
+
+.titulo-episodio-vdam {
+    font-size: 1.2rem;
+    margin: 1vh 1vw;
+}
+
+.boton-formulario-vdam {
+    width: 30%;
+    margin: 0.6vw;
+    padding: 0.6vw;
+    background-color: #2364AA;
+    color: white;
+    border: none;
+    text-decoration: none;
+    border-radius: 15px;
+    min-width: 100px;
+    height: 7vh;
+    transition: 0.1s linear;
+}
+
+.boton-formulario-vdam:hover {
+    transform: scale(1.05);
+    filter: saturate(150%);
+    border-radius: 10px;
+}
+
+.vdam input {
+    opacity: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.vdam:has(input:checked) {
+    background-color: greenyellow;
+    background-size: 0% 100%;
+    border-left: 5px solid green;
+    color: green;
+}
+
 /*input fecha*/
 .fecha {
     width: 22vw;
+    min-width: 200px;
     margin: 0.6vw;
     padding: 0.6vw;
     font-size: 1rem;
@@ -336,6 +629,190 @@ nav>a>div:hover {
 
 .fecha:hover {
     border: 1px solid #2364AA;
+    border-radius: 10px;
+}
+
+/*Autenticación*/
+.body-auth{
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.auth-formulario {
+    width: 100%;
+    max-width: 600px;
+    background-color: #fefefe;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 2vh 2vw;
+    text-align: center;
+    transition: 0.4s ease-out;
+}
+
+.auth-formulario:hover {
+    box-shadow: 0 4px 12px #0009;
+}
+
+.auth-formulario img{
+    max-width: 120px;
+    margin: 10px;
+}
+
+.auth-formulario h2{
+    margin: 10px;
+    color: #333;
+}
+
+.auth-campo{
+    width: 100%;
+    height: auto;
+    padding: 2vh 2vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.auth-campo input{
+    width: 100%;
+    padding: 0.3rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: 0.1s ease-in-out;
+}
+
+.auth-campo input:hover{
+    border: 1px solid #2364AA;
+    border-radius: 10px;
+}
+
+.caja-roles{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 0;
+    width: 100%;
+    position: relative;
+}
+
+.rol{
+    position: relative;
+    z-index: 1;
+    padding: 1vh 1vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.solapa{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: #2364AA;
+    transition: transform 0.2s ease-in-out;
+    border-radius: 10px;
+    z-index: 0;
+}
+
+input[type="radio"]:checked + .rol{
+    color: white;
+}
+
+/*Vista welcome*/
+.contenedor-welcome{
+    display: flex;
+    flex-direction: column;
+    gap: 12vh;
+    max-width: 1050px;
+    margin: auto;
+    padding: 1vh 1vw;
+}
+
+.apartado-welcome{
+    display: flex;
+    gap: 2vw;
+    align-items: center;
+    padding: 1vh 1vw;
+    opacity: 0;
+    transform: translateX(0);
+    transition: 1s ease-in-out;
+}
+
+.apartado-visible{
+    opacity: 1;
+}
+
+.izdadcha{
+    transform: translateX(-100px);
+}
+
+.dchaizda{
+    transform:translateX(100px)
+}
+
+.apartado-visible.izdadcha, .apartado-visible.dchaizda{
+    transform: translateX(0);
+}
+
+.imagen-welcome{
+    flex: 0 0 400px;
+}
+
+.imagen-welcome img{
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.texto-welcome{
+    flex: 1;
+    font-size: 1rem;
+}
+
+@media(max-width:900px){
+    .apartado-welcome{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .botones-welcome{
+        flex-direction: column;
+        gap: 4vh;
+    }
+}
+
+.botones-welcome{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4vw;
+    max-width: 1050px;
+    margin: 4vh auto;
+}
+
+.botones-welcome button {
+    padding: 2vh 2vw;
+    font-size: 1rem;
+    background-color: #2364AA;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+.botones-welcome button:hover {
+    transform: scale(1.05);
+    filter: saturate(150%);
     border-radius: 10px;
 }
 

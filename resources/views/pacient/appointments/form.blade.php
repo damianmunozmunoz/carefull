@@ -15,5 +15,4 @@
             <button type="submit" class="boton-formulario">Reservar cita</button>
         </form>
     </div>
-
 @endsection

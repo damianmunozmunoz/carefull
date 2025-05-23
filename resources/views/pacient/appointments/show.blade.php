@@ -1,21 +1,21 @@
 @extends('layouts.master')
 
-@section('content')
-    <h1 class="text-2xl font-bold mb-6">Detalle de tu Cita</h1>
+@section('title', 'Detalles de tu cita')
 
-    <div class="bg-white p-6 rounded shadow mb-6">
-        <p><strong>Fecha:</strong> {{ $appointment->date }}</p>
-        <p><strong>Hora:</strong> {{ \Carbon\Carbon::parse($appointment->time)->format('H:i') }}</p>
-        <p><strong>Motivo:</strong> {{ $appointment->reason }}</p>
-        <p><strong>Observaciones:</strong> {{ $appointment->observations ?? 'Sin observaciones aún' }}</p>
-        <p><strong>Médico:</strong> {{ $appointment->episode->nurse->name }}</p>
-        <p><strong>Paciente:</strong> {{ $appointment->episode->pacient->name }}</p>
+@section('content')
+    <div class="contenedor-show-cita">
+        <p><b>Fecha:</b> {{ $appointment->date }}</p>
+        <p><b>Hora:</b> {{ \Carbon\Carbon::parse($appointment->time)->format('H:i') }}</p>
+        <p><b>Motivo:</b> {{ $appointment->reason }}</p>
+        <p><b>Observaciones:</b> {{ $appointment->observations ?? 'Sin observaciones aún' }}</p>
+        <p><b>Médico:</b> {{ $appointment->episode->nurse->name }}</p>
+        <p><b>Paciente:</b> {{ $appointment->episode->pacient->name }}</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="contenedor-show-cita-grid">
         <div>
-            <h2 class="font-semibold mb-2">Alergias detectadas:</h2>
-            <ul class="list-disc list-inside">
+            <h2 class="texto-azul-oscuro">Alergias detectadas</h2>
+            <ul>
                 @forelse ($appointment->allergies as $allergy)
                     <li>{{ $allergy->name }}</li>
                 @empty
@@ -25,8 +25,8 @@
         </div>
 
         <div>
-            <h2 class="font-semibold mb-2">Enfermedades detectadas:</h2>
-            <ul class="list-disc list-inside">
+            <h2 class="texto-azul-claro">Enfermedades detectadas</h2>
+            <ul>
                 @forelse ($appointment->diseases as $disease)
                     <li>{{ $disease->name }}</li>
                 @empty
@@ -36,8 +36,8 @@
         </div>
 
         <div>
-            <h2 class="font-semibold mb-2">Medicamentos recetados:</h2>
-            <ul class="list-disc list-inside">
+            <h2 class="texto-amarillo">Medicamentos recetados</h2>
+            <ul>
                 @forelse ($appointment->medicines as $medicine)
                     <li>{{ $medicine->name }}</li>
                 @empty
@@ -47,8 +47,8 @@
         </div>
 
         <div>
-            <h2 class="font-semibold mb-2">Vacunas puestas:</h2>
-            <ul class="list-disc list-inside">
+            <h2 class="texto-naranja">Vacunas puestas</h2>
+            <ul>
                 @forelse ($appointment->vaccines as $vaccine)
                     <li>{{ $vaccine->name }}</li>
                 @empty
@@ -57,4 +57,13 @@
             </ul>
         </div>
     </div>
+    <form action="{{ route('pacient.appointments.destroy', $appointment->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <div class="botones-update-cita">
+            <button type="submit" class="boton-submit-vdam" style="background-color: red;">
+                Eliminar Cita
+            </button>
+        </div>
+    </form>
 @endsection

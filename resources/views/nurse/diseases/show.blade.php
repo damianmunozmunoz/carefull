@@ -1,53 +1,55 @@
 @extends('layouts.master')
 
+@section('title', $disease->name)
+
 @section('content')
-    <h1 class="text-3xl font-bold mb-4">{{ $disease->name }}</h1>
+    <div class="contenedor-show-cita" style="border-color: transparent;">
+        <p>{!! $disease->description !!}</p>
+    </div>
 
-    <p class="mb-6 text-gray-700">
-        <strong>Descripción:</strong><br>
-        {{ $disease->description ?? 'Sin descripción disponible.' }}
-    </p>
-
-    <h2 class="text-xl font-semibold mb-2">Medicamentos que la curan</h2>
-    <ul class="list-disc list-inside mb-6">
+    <h4 class="text-center">Medicamentos que la curan</h4>
+    <div class="contenedor">
         @forelse ($disease->medicines as $medicine)
-            <li>
-                <a href="{{ route('nurse.medicines.show', $medicine->id) }}" class="text-blue-600 underline">
-                    {{ $medicine->name }}
-                </a>
-            </li>
+            <a href="{{ route('nurse.medicines.show', $medicine->id) }}">
+                <div class="caja-cita medicamento">{{ $medicine->name }}</div>
+            </a>
         @empty
-            <li>No hay medicamentos asociados.</li>
+            <p>No hay medicamentos asociados.</p>
         @endforelse
-    </ul>
+    </div>
 
-    <h2 class="text-xl font-semibold mb-2">Vacunas que la previenen o curan</h2>
-    <ul class="list-disc list-inside mb-6">
+    <h4 class="text-center">Vacunas que la previenen o curan</h4>
+    <div class="contenedor">
         @forelse ($disease->vaccines as $vaccine)
-            <li>
-                <p>{{ $pacient->name }}
-                    <a href="{{ route('nurse.pacients.medical_record', $pacient->id) }}"
-                        class="text-blue-600 hover:underline">Ficha
-                        médica</a>
-                    <a href="{{ route('nurse.pacients.medical_history', $pacient->id) }}"
-                        class="text-blue-600 hover:underline">Historial médico</a>
-                </p>
-            </li>
+            <a href="{{ route('nurse.vaccines.show', $vaccine->id) }}">
+                <div class="caja-cita vacuna">{{ $vaccine->name }}</div>
+            </a>
         @empty
-            <li>No hay vacunas asociadas.</li>
+            <p>No hay vacunas asociadas.</p>
         @endforelse
-    </ul>
+    </div>
 
-    <h2 class="text-xl font-semibold mb-2">Tus pacientes que padecen esta enfermedad</h2>
-    <ul class="list-disc list-inside">
-        @forelse ($pacients as $pacient)
-            <li>
-                <a href="{{ route('nurse.pacients.medical_record', $pacient->id) }}" class="text-blue-600 underline">
-                    {{ $pacient->name }}
-                </a>
-            </li>
-        @empty
-            <li>No hay pacientes que padezcan esta enfermedad.</li>
-        @endforelse
-    </ul>
+    <h4 class="text-center">Tus pacientes que padecen esta enfermedad</h4>
+        <div class="contenedor">
+            @forelse($pacients as $pacient)
+                <div class="caja-paciente">
+                    <span class="caja-paciente-nombre">
+                        <p>{{ $pacient->name }}</p>
+                    </span>
+                    <span class="caja-paciente-email">
+                        <p>{{ $pacient->email }}</p>
+                    </span>
+                    <div class="botones-paciente">
+                        <a href="{{ route('nurse.pacients.medical_record', $pacient->id) }}">
+                            <button>Ficha<br> médica</button>
+                        </a>
+                        <a href="{{ route('nurse.pacients.medical_history', $pacient->id) }}">
+                            <button>Historial<br> médico</button>
+                        </a>
+                    </div>
+                </div>
+            @empty
+                <p>Ningun paciente padece esta alergia.</p>
+            @endforelse
+        </div>
 @endsection

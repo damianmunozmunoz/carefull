@@ -1,35 +1,44 @@
 @extends('layouts.master')
 
+@section('title', $allergy->name)
+
 @section('content')
-    <h1 class="text-3xl font-bold mb-4">{{ $allergy->name }}</h1>
+    <div class="contenedor-show-cita" style="border-color: transparent;">
+        <p>{!! $allergy->description !!}</p>
+    </div>
 
-    <h2 class="text-xl font-semibold mb-2">Medicamentos que la tratan</h2>
-    <ul class="list-disc list-inside mb-6">
+    <h4 class="text-center">Medicamentos que la tratan</h4>
+    <div class="contenedor">
         @forelse ($allergy->medicines as $medicine)
-            <li>
-                <a href="{{ route('nurse.medicines.show', $medicine->id) }}" class="text-blue-600 underline">
-                    {{ $medicine->name }}
-                </a>
-            </li>
+            <a href="{{ route('nurse.medicines.show', $medicine->id) }}">
+                <div class="caja-cita medicamento">{{ $medicine->name }}</div>
+            </a>
         @empty
-            <li>No hay medicamentos asociados.</li>
+            <p>No hay medicamentos asociados.</p>
         @endforelse
-    </ul>
+    </div>
 
-    <h2 class="text-xl font-semibold mb-2">Tus pacientes que padecen esta alergia</h2>
-    <ul class="list-disc list-inside">
-        @forelse ($pacients as $pacient)
-            <li>
-                <p>{{ $pacient->name }}
-                    <a href="{{ route('nurse.pacients.medical_record', $pacient->id) }}"
-                        class="text-blue-600 hover:underline">Ficha
-                        médica</a>
-                    <a href="{{ route('nurse.pacients.medical_history', $pacient->id) }}"
-                        class="text-blue-600 hover:underline">Historial médico</a>
-                </p>
-            </li>
+    <h4 class="text-center">Tus pacientes que padecen esta alergia</h4>
+    <div class="contenedor">
+        @forelse($pacients as $pacient)
+            <div class="caja-paciente">
+                <span class="caja-paciente-nombre">
+                    <p>{{ $pacient->name }}</p>
+                </span>
+                <span class="caja-paciente-email">
+                    <p>{{ $pacient->email }}</p>
+                </span>
+                <div class="botones-paciente">
+                    <a href="{{ route('nurse.pacients.medical_record', $pacient->id) }}">
+                        <button>Ficha<br> médica</button>
+                    </a>
+                    <a href="{{ route('nurse.pacients.medical_history', $pacient->id) }}">
+                        <button>Historial<br> médico</button>
+                    </a>
+                </div>
+            </div>
         @empty
-            <li>No hay pacientes que padezcan esta alergia.</li>
+            <p>Ningun paciente padece esta alergia.</p>
         @endforelse
-    </ul>
+    </div>
 @endsection

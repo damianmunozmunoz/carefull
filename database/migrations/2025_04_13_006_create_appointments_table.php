@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('time');
             $table->string('reason');
-            $table->string('observations')->nullable();
+            $table->text('observations')->nullable();
 
             $table->unsignedBigInteger('episode_id')->nullable();
 

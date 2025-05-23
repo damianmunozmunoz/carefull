@@ -8,7 +8,12 @@
             class="cita-formulario">
             @csrf
 
-            <h5 class="titulo-formulario"><b>Rellena los datos de la cita para el día <br> {{ $date }} a las {{ $time }}</b></h5>
+            <h5 class="text-center"><b><span class="texto-azul-oscuro">Rellena los </span><span
+                        class="texto-azul-medio">datos </span><span class="texto-azul-claro">de la </span><span
+                        class="texto-amarillo">cita para </span><span class="texto-naranja">el día </span><br><span
+                        class="texto-azul-medio">{{ $date }}</span><span class="texto-azul-claro"> a las </span><span
+                        class="texto-amarillo">{{ $time }}</span></b>
+            </h5>
             <div class="formulario">
                 <label for="pacient_id"><b>Selecciona un paciente:</b></label>
                 <select name="pacient_id" required>

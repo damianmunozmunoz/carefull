@@ -30,10 +30,10 @@
                 </span>
                 <div class="botones-paciente">
                     <a href="{{ route('nurse.pacients.medical_record', $pacient->id) }}">
-                        <button>Ficha médica</button>
+                        <button>Ficha<br> médica</button>
                     </a>
                     <a href="{{ route('nurse.pacients.medical_history', $pacient->id) }}">
-                        <button>Historial médico</button>
+                        <button>Historial<br> médico</button>
                     </a>
                 </div>
             </div>
